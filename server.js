@@ -1,4 +1,4 @@
-console.log("\n\n🚀🚀🚀 ЗАПУСКАЄТЬСЯ САМЕ ЦЕЙ ФАЙЛ SERVER.JS! 🚀🚀🚀\n\n");
+
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
