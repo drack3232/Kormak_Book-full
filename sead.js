@@ -160,9 +160,8 @@ db.query(clearTable, (err) => {
 
     // Додаємо ціну до кожної книги перед вставкою
     const booksWithPrice = books.map(book => {
-        // [title, author, year, genre, cover_url, description, price]
         const price = (Math.floor(Math.random() * 300) + 150).toFixed(2); 
-        return [...book, price]; // Додаємо ціну в кінець масиву
+        return [...book, price]; 
     });
 
     // Виконання запиту
@@ -179,7 +178,7 @@ db.query(clearTable, (err) => {
       console.log("🔗 База даних: library_online");
       console.log("👤 Користувач: root");
       
-      db.end(); // Закриваємо з'єднання після успішного додавання
+      db.end(); 
     });
   });
 });

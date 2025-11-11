@@ -106,7 +106,7 @@ app.post("/cart/add", authenticateToken, (req, res) => {
 
 app.get("/cart/:userId", authenticateToken, (req, res) => {
   const userId = req.params.userId;
-  
+   
   // Перевіряємо, чи користувач має доступ до цього кошика
   if (req.user.id != userId) {
     return res.status(403).json({ error: "Доступ заборонено" });
