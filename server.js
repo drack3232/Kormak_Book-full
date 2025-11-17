@@ -6,7 +6,7 @@ require('dotenv').config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 //const { use } = require("react");
-const SECRET = "supersecret"; // краще винести у .env
+const SECRET = "supersecret"; 
 const app = express();
 
 app.use(express.json());
