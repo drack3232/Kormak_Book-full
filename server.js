@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-
+app.get("/test", (req, res) => res.send("СЕРВЕР УСПІШНО ПЕРЕЗАПУЩЕНО!"));
 // Підключення до MySQL
 const db = mysql.createConnection({
   host: "localhost",
@@ -94,7 +94,9 @@ res.json(users[0])
 
 
 // ==================== КОШИК ====================
-app.post("/cart/add", authenticateToken, (req, res) => {
+
+app.post("/cart/:userID/add", authenticateToken, (req, res) => {
+  console.log("✅✅✅ ЗАПИТ НА /cart/add БУЛО УСПІШНО ОТРИМАНО! ✅✅✅");
   const { bookId } = req.body;
   const userId = req.user.id;
 
@@ -103,6 +105,36 @@ app.post("/cart/add", authenticateToken, (req, res) => {
     res.json({ message: "✅ Додано у кошик" });
   });
 });
+
+// ... (твій app.post("/cart/add", ...) тут) ...
+
+// ❗️ ДОДАЙ ЦЕЙ НОВИЙ МАРШРУТ
+app.post("/cart/:userID/remove", authenticateToken, (req, res) => {
+  const { bookId } = req.body;
+  const userId = req.user.id;
+
+  // Потрібно перевірити, чи bookId існує
+  if (!bookId) {
+    return res.status(400).json({ error: "Не вказано ID книги" });
+  }
+
+  // Видаляємо ОДИН запис (якщо в кошику 3 однакових книги, це видалить одну)
+  // Якщо хочеш видалити всі - зміни SQL на "DELETE FROM cart WHERE ..."
+  const sql = "DELETE FROM cart WHERE user_id = ? AND book_id = ? LIMIT 1";
+
+  db.query(sql, [userId, bookId], (err, result) => {
+    if (err) {
+      console.error("Помилка видалення з кошика:", err);
+      return res.status(500).json({ error: "Помилка сервера" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Цю книгу не знайдено в кошику" });
+    }
+    res.json({ message: "✅ Видалено з кошика" });
+  });
+});
+
+
 
 app.get("/cart/:userId", authenticateToken, (req, res) => {
   const userId = req.params.userId;
