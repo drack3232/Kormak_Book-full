@@ -106,20 +106,19 @@ app.post("/cart/:userID/add", authenticateToken, (req, res) => {
   });
 });
 
-// ... (твій app.post("/cart/add", ...) тут) ...
 
-// ❗️ ДОДАЙ ЦЕЙ НОВИЙ МАРШРУТ
+
+
 app.post("/cart/:userID/remove", authenticateToken, (req, res) => {
   const { bookId } = req.body;
   const userId = req.user.id;
 
-  // Потрібно перевірити, чи bookId існує
+  
   if (!bookId) {
     return res.status(400).json({ error: "Не вказано ID книги" });
   }
 
-  // Видаляємо ОДИН запис (якщо в кошику 3 однакових книги, це видалить одну)
-  // Якщо хочеш видалити всі - зміни SQL на "DELETE FROM cart WHERE ..."
+  
   const sql = "DELETE FROM cart WHERE user_id = ? AND book_id = ? LIMIT 1";
 
   db.query(sql, [userId, bookId], (err, result) => {
@@ -139,7 +138,7 @@ app.post("/cart/:userID/remove", authenticateToken, (req, res) => {
 app.get("/cart/:userId", authenticateToken, (req, res) => {
   const userId = req.params.userId;
    
-  // Перевіряємо, чи користувач має доступ до цього кошика
+
   if (req.user.id != userId) {
     return res.status(403).json({ error: "Доступ заборонено" });
   }
@@ -164,7 +163,7 @@ app.get("/api/wishlist", authenticateToken, (req, res) => {
       console.error("Помилка отримання бажаного:", err);
       return res.status(500).json({ error: "Помилка сервера" });
     }
-    // Повертаємо просто масив ID: [1, 5, 12]
+   
     const wishlistIds = results.map(item => item.book_id);
     res.json(wishlistIds);
   });
@@ -212,7 +211,7 @@ app.delete("/api/wishlist/:bookId", authenticateToken, (req, res) => {
 });
 console.log("!!! WISHLIST ROUTES DEFINED !!!")
 
-// Отримати повні дані книг для сторінки "Моя Бібліотека"
+
 app.get("/api/wishlist/books", authenticateToken, (req, res) => {
   const userId = req.user.id;
   const sql = "SELECT b.id, b.title, b.author, b.cover_url, b.genre FROM books b JOIN wishlist w ON b.id = w.book_id WHERE w.user_id = ?";
@@ -222,21 +221,21 @@ app.get("/api/wishlist/books", authenticateToken, (req, res) => {
       console.error("Помилка отримання книг з бібліотеки:", err);
       return res.status(500).json({ error: "Помилка сервера" });
     }
-    // Повертаємо масив повних об'єктів книг
+    
     res.json(results);
   });
 });
 // ==================== ОСНОВНІ ЕНДПОІНТИ КНИГ ====================
 
-// Отримати ВСІ книги (з фільтром по жанру)
+
 app.get("/books", (req, res) => {
-  // Перевіряємо, чи є в запиті параметр 'genre'
+  
   const genre = req.query.genre;
 
   let sqlQuery = "SELECT * FROM books";
   const params = [];
 
-  // Якщо жанр вказано, додаємо умову до SQL-запиту
+
   if (genre) {
     sqlQuery += " WHERE genre = ?";
     params.push(genre);
@@ -251,7 +250,7 @@ app.get("/books", (req, res) => {
   });
 });
 
-// Додати нову книгу
+
 app.post("/books", (req, res) => {
   const { title, author, year, genre, description, cover_url } = req.body;
   db.query(
@@ -265,9 +264,7 @@ app.post("/books", (req, res) => {
 });
 
 
-// === ВИПРАВЛЕНИЙ ПОРЯДОК: БЛОК 1 - КОНКРЕТНІ МАРШРУТИ ===
 
-// Популярні книги
 app.get("/books/popular", (req, res) => {
   db.query(
    "SELECT * FROM books ORDER BY id DESC LIMIT 4",
@@ -278,7 +275,7 @@ app.get("/books/popular", (req, res) => {
   );
 });
 
-// Отримання унікальних жанрів
+
 app.get("/books/genres", (req, res) => {
   db.query(
     "SELECT DISTINCT genre FROM books WHERE genre IS NOT NULL AND genre != '' ORDER BY genre", 
@@ -338,31 +335,27 @@ app.get("/books/search/advanced", (req, res) => {
   });
 });
 
-// === ПЕРЕВІР, ЧИ Є ЦЕЙ МАРШРУТ ===
-app.get("/books/search", (req, res) => {
-  const query = req.query.q; // Беремо пошуковий запит з параметра ?q=...
 
-  // Перевірка, чи запит не порожній
+app.get("/books/search", (req, res) => {
+  const query = req.query.q; 
   if (!query || query.trim() === '') {
-    return res.json([]); // Якщо запит порожній, повертаємо порожній масив
+    return res.json([]); 
   }
 
-  // Шукаємо книги, де назва АБО автор містять запит (LIKE '%query%')
   const sql = "SELECT * FROM books WHERE title LIKE ? OR author LIKE ?";
-  const searchTerm = `%${query.trim()}%`; // Додаємо % для пошуку будь-де у рядку
+  const searchTerm = `%${query.trim()}%`; 
 
   db.query(sql, [searchTerm, searchTerm], (err, results) => {
     if (err) {
       console.error("Помилка пошуку книг:", err);
       return res.status(500).json({ error: "Помилка сервера під час пошуку" });
     }
-    res.json(results); // Повертаємо знайдені книги
+    res.json(results); 
   });
 });
 
-// === ВИПРАВЛЕНИЙ ПОРЯДОК: БЛОК 2 - БІЛЬШ КОНКРЕТНІ ДИНАМІЧНІ МАРШРУТИ ===
 
-// Оновлення рейтингу книги (допоміжна функція)
+
 const updateBookRating = (bookId) => {
   db.query(
     "SELECT AVG(rating) as avgRating, COUNT(*) as count FROM reviews WHERE book_id = ?",
@@ -384,14 +377,13 @@ const updateBookRating = (bookId) => {
   );
 };
 
-// Додавання відгуку
+
 app.post("/books/:id/review", authenticateToken, (req, res) => {
   
   const { rating, comment } = req.body;
   const bookId = req.params.id;
   const userId = req.user.id;
 
-  // Перевіряємо, чи користувач вже залишав відгук
   db.query(
     "SELECT id FROM reviews WHERE user_id = ? AND book_id = ?",
     [userId, bookId],
@@ -402,14 +394,12 @@ app.post("/books/:id/review", authenticateToken, (req, res) => {
         return res.status(400).json({ error: "Ви вже залишили відгук для цієї книги" });
       }
 
-      // Додаємо новий відгук
       db.query(
         "INSERT INTO reviews (user_id, book_id, rating, comment) VALUES (?, ?, ?, ?)",
         [userId, bookId, rating, comment],
         (insertErr) => {
           if (insertErr) return res.status(500).json({ error: insertErr });
           
-          // Оновлюємо рейтинг книги
           updateBookRating(bookId);
           res.json({ message: "Відгук додано!" });
         }
@@ -418,7 +408,7 @@ app.post("/books/:id/review", authenticateToken, (req, res) => {
   );
 });
 
-// Отримання відгуків для книги
+
 app.get("/books/:id/reviews", (req, res) => {
   const bookId = req.params.id;
   
@@ -427,7 +417,7 @@ app.get("/books/:id/reviews", (req, res) => {
   
   db.query(query, [bookId], (err, results) => {
     if (err) {
-        // Ми можемо залишити лог, він корисний
+   
         console.error("!!! ПОМИЛКА SQL В /books/:id/reviews:", err); 
         return res.status(500).json({ error: err });
     }
@@ -437,7 +427,7 @@ app.get("/books/:id/reviews", (req, res) => {
 
 // === НОВИЙ МАРШРУТ: ОТРИМАТИ КНИГИ, ЗГРУПОВАНІ ЗА ЖАНРОМ ===
 app.get("/books/by-genre", (req, res) => {
-  // 1. Беремо всі книги, які мають жанр, сортуємо за жанром
+  
   const sql = "SELECT * FROM books WHERE genre IS NOT NULL AND genre != '' ORDER BY genre, id DESC";
   
   db.query(sql, (err, results) => {
@@ -446,32 +436,23 @@ app.get("/books/by-genre", (req, res) => {
       return res.status(500).json({ error: "Помилка сервера" });
     }
 
-    // 2. Магія: Групуємо плаский масив у об'єкт
     const groupedBooks = {};
     for (const book of results) {
       const genre = book.genre;
       
-      // Якщо такого жанру в нашому об'єкті ще немає, створюємо для нього порожній масив
       if (!groupedBooks[genre]) {
         groupedBooks[genre] = [];
       }
       
-      // 3. Додаємо книгу в масив її жанру (але не більше 10, щоб не перевантажувати)
       if (groupedBooks[genre].length < 10) {
         groupedBooks[genre].push(book);
       }
     }
-    
-    // 4. Відправляємо готовий об'єкт
-    res.json(groupedBooks);
+        res.json(groupedBooks);
   });
 });
 
-// === КІНЕЦЬ НОВОГО МАРШРУТУ ===
 
-// === ВИПРАВЛЕНИЙ ПОРЯДОК: БЛОК 3 - ЗАГАЛЬНІ ДИНАМІЧНІ МАРШРУТИ ===
-
-// Оновити книгу
 app.put("/books/:id", (req, res) => {
   const id = req.params.id;
   const { title, author, year, genre, description, cover_url } = req.body;
@@ -485,7 +466,7 @@ app.put("/books/:id", (req, res) => {
   );
 });
 
-// Видалити книгу
+
 app.delete("/books/:id", (req, res) => {
   const id = req.params.id;
   db.query("DELETE FROM books WHERE id = ?", [id], (err, results) => {
@@ -494,10 +475,10 @@ app.delete("/books/:id", (req, res) => {
   });
 });
 
-// Отримати одну книгу за id
+
 app.get("/books/:id", (req, res) => {
   const bookId = req.params.id;
-  // Додаємо лог для перевірки
+  
   console.log("--- ОТРИМАНО ЗАПИТ НА ID КНИГИ:", bookId, " (тип:", typeof bookId, ")");
   const sqlQuery = "SELECT * FROM books WHERE id = ?";
 
