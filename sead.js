@@ -1,12 +1,12 @@
-// seed.js
+
 const mysql = require("mysql2");
 
 // Підключення до БД
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "password", // твій пароль
-  database: "library_online", // твоя база даних
+  password: "password", 
+  database: "library_online", 
 });
 
 db.connect(err => {
@@ -17,7 +17,6 @@ db.connect(err => {
   console.log("✅ Підключено до MySQL");
 });
 
-// Список СУЧАСНИХ книг (після 2000р, без рос. авторів) з оновленими URL
 const books = [
   // --- Сага про Відьмака ---
   ["Відьмак: Останнє бажання", "Анджей Сапковський", 2016, "Фентезі", "https://covers.openlibrary.org/b/id/13770375-M.jpg", "Біловолосий відьмак Ґеральт із Рівії, один з небагатьох представників колись численного цеху захисників людської раси від породжень нелюдського зла, мандрує невеликими королівствами, які можна охопити поглядом з вежі замку, та великими містами, отримуючи платню за те, чого навчений, - знищення віїв і з'ядарок, стриґ та віпперів."],
@@ -129,17 +128,13 @@ const books = [
   ["Фелікс Австрія", "Софія Андрухович", 2014, "Роман", "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/1/4/145_1_40.jpg", "Станіславів кінця ХІХ – початку ХХ століття. Звичайне місто на кресах «щасливої Австрії», в якому живуть, страждають, нероздільно закохуються, захоплюються наукою і шарлатанськими виступами всесвітньо знаних ілюзіоністів, розважаються на балах і карнавалах, ходять на шпацер і ховають таємниці у різьблених комодах. І на тлі епохи, яка для нащадків щораз більше обростатиме міфами про ідилічне життя, - долі двох жінок, що переплелися так тісно, як стовбури дерев – у нерозривному зв’язку, який не дає ні жити, ні дихати, ні залишитися, ні піти."],
 ];
 
-// 1. Спочатку очищаємо таблиці, які ПОСИЛАЮТЬСЯ на книги
 const clearCart = "DELETE FROM cart";
-// (Припускаємо, що таблиця wishlist_items існує, якщо ні - скрипт просто видасть помилку і продовжить)
 const clearWishlist = "DELETE FROM wishlist_items"; 
 
-// 2. Тільки ПОТІМ очищаємо головну таблицю 'books'
 const clearBooksTable = "DELETE FROM books";
 const resetAutoIncrement = "ALTER TABLE books AUTO_INCREMENT = 1";
 
 
-// Виконуємо запити послідовно
 db.query(clearCart, (err) => {
   if (err) console.error("❌ Помилка при очищенні 'cart':", err.message);
   else console.log("✅ Таблицю 'cart' очищено");
@@ -148,7 +143,6 @@ db.query(clearCart, (err) => {
     if (err) console.error("❌ Помилка при очищенні 'wishlist_items':", err.message);
     else console.log("✅ Таблицю 'wishlist_items' очищено");
 
-    // Тепер, коли дочірні таблиці чисті, ми МОЖЕМО видаляти книги
     db.query(clearBooksTable, (err) => {
       if (err) {
         console.error("❌ Помилка при очищенні 'books':", err);
@@ -165,8 +159,6 @@ db.query(clearCart, (err) => {
           console.log("✅ AUTO_INCREMENT скинуто");
         }
         
-        // === (!!!) ВИПРАВЛЕННЯ (!!!) ===
-        // Я переписав SQL-запит в ОДИН рядок, щоб уникнути помилок з \n
         const sql = "INSERT INTO books (title, author, year, genre, cover_url, description, price) VALUES ?";
 
         const booksWithPrice = books.map(book => {
@@ -177,7 +169,7 @@ db.query(clearCart, (err) => {
         db.query(sql, [booksWithPrice], (err, result) => {
           if (err) {
             console.error("❌ Помилка при додаванні книг:", err);
-            console.error("Помилка SQL:", err.sqlMessage); // Більше деталей
+            console.error("Помилка SQL:", err.sqlMessage); 
             db.end();
             return;
           }
