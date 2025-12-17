@@ -1,0 +1,1716 @@
+/* ==================== ЗАГАЛЬНІ СТИЛІ ТА РОЗМІТКА ==================== */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* background-color: #f4f4f4; Сірий фон для всього сайту */
+}
+
+#root {
+  display: flex; 
+  flex-direction: column;
+}
+
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.main-content {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ==================== ХЕДЕР (HEADER) ==================== */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  padding: 4px 0;
+  margin: -40px 0;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-container-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px; 
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.header-left-flex {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.cart-icon-link {
+  font-size: 1.8rem;
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.cart-icon-link:hover {
+  transform: scale(1.1); 
+}
+
+.logo {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.main-nav a {
+  position: relative;
+  color: #2a3138;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.main-nav a:hover::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(135deg, #c28903 0%, #9b6e1b 100%);
+}
+
+.search-form-header {
+  width: 300px;
+}
+
+.search-input-header {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+}
+
+.search-input-header:focus {
+  border-color: #f25a38; 
+  box-shadow: 0 0 0 2px rgba(242, 90, 56, 0.25);
+  outline: none;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ==================== СТИЛІ КНОПОК  ==================== */
+.user-actions button,
+.user-actions a,
+.form button,
+.btn-delete,
+.btn-edit,
+.modal-content button[type="submit"],
+.btn-add-to-cart, 
+.btn-outline, 
+.review-form button[type="submit"] 
+{
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  box-sizing: border-box; 
+  
+}
+.btn-register,
+.form button,
+.modal-content button[type="submit"],
+.btn-add-to-cart,
+.review-form button[type="submit"]
+{
+  background-color: #f25a38; 
+  color: white;
+  border-color: #f25a38; 
+}
+
+.btn-register:hover,
+.form button:hover,
+.modal-content button[type="submit"]:hover,
+.btn-add-to-cart:hover,
+.review-form button[type="submit"]:hover
+{
+  background-color: #d94f30;
+  border-color: #d94f30;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* --- Вторинний стиль (Secondary / Outline): Вхід, Написати відгук --- */
+.btn-login,
+.btn-outline {
+  background-color: transparent;
+  border-color: #e0e0e0;
+  color: #333;
+}
+.btn-login:hover {
+  background-color: #f5f5f5;
+  border-color: #ccc;
+}
+.btn-outline {
+  border-color: #f25a38;
+  color: #f25a38;
+}
+.btn-outline:hover {
+  background-color: #f25a38;
+  color: white;
+}
+
+/* --- Кнопки дій: Видалити --- */
+.btn-delete { background-color: #e74c3c; color: white; }
+.btn-delete:hover { background-color: #c0392b; }
+
+/* --- Кнопки дій: Редагувати --- */
+.btn-edit { background-color: #3498db; color: white; }
+.btn-edit:hover { background-color: #2980b9; }
+
+
+/* ==================== ФОРМА (Адмінка) ==================== */
+.form-section {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  margin: 40px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.form-section h2 {
+  margin-top: 0;
+  color: #495057;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 10px;
+  text-align: left;
+}
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  align-items: start;
+}
+.form input,
+.form textarea {
+  padding: 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #f8f9fa;
+  box-sizing: border-box;
+  width: 100%;
+}
+.form textarea {
+  grid-column: 1 / -1;
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* ==================== СІТКА І КАРТКИ КНИГ ==================== */
+.books-grid {
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 22px;
+  padding-bottom: 30px;
+  padding: 20px 0;
+  justify-content: flex-start !important;
+   justify-content: flex-start !important;
+     width: 100%; 
+}
+
+
+.wishlist-page-padding {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.wishlist-content-card {
+ max-width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; 
+  padding: 0 16px; 
+  box-sizing: border-box;
+}
+
+.wishlist-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: white; 
+}
+
+.empty-wishlist-message {
+  text-align: center;
+  padding: 4rem 0;
+  color: #9ca3af;
+}
+
+.empty-message-lg {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.book-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+.book-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  transition: all 0.3s ease-in-out;
+}
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+.book-cover-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background-color: #f0f2f5;
+}
+.book-cover-container::before {
+  content: "📚";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: #adb5bd;
+}
+.book-cover-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+.book-info {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
+}
+.book-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #212529;
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.book-author {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin: 0;
+}
+.book-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto; 
+  padding: 15px;
+  padding-top: 0;
+}
+
+/* ==================== ФУТЕР (FOOTER) ==================== */
+.app-footer {
+  background: #2c3e50;
+  color: #bdc3c7;
+  padding: 30px 0;
+  text-align: center;
+  margin-top: auto;
+}
+.app-footer p { margin: 0 0 10px; }
+.social-links a {
+  color: #ecf0f1;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s;
+}
+.social-links a:hover { color: #667eea; }
+
+/* ==================== ДОПОМІЖНІ СТИЛІ ==================== */
+.loading, .empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+  font-size: 1.2rem;
+}
+
+/* ==================== МОДАЛЬНІ ВІКНА ==================== */
+
+.modal-content h2 {
+  margin-top: 0;
+  text-align: center;
+}
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.modal-content input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.btn-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #aaa;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.error-message {
+  margin: 0;
+  color: #e74c3c;
+  text-align: center;
+}
+
+/* ==================== АДАПТИВНІСТЬ ==================== */
+@media (max-width: 768px) {
+  .container { padding: 15px; }
+  .form { grid-template-columns: 1fr; }
+  .books-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 2rem; }
+  .book-detail-grid { grid-template-columns: 1fr; }
+  .book-detail-left-column, .purchase-box-wrapper { position: static; }
+}
+
+/* ==================== ОСОБИСТИЙ КАБІНЕТ ==================== */
+.profile-page-container{
+  padding: 40px 0;
+}
+.profile-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 30px 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.profile-card h1 {
+  text-align: left;
+  margin-top: 0;
+  font-size: 2rem;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+.profile-section {
+  margin-bottom: 30px;
+}
+.profile-section h2 {
+  text-align: left;
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 15px;
+  border-left: 4px solid #f25a38;
+  padding-left: 10px;
+}
+.profile-details p {
+  font-size: 1rem;
+  color: #555;
+  margin: 8px 0;
+  padding-left: 14px;
+}
+.profile-details strong {
+  color: #333;
+  width: 80px;
+  display: inline-block;
+}
+.profile-placeholder {
+  color: #777;
+  padding-left: 14px;
+  font-style: italic;
+}
+
+/* ==================== МЕНЮ ПРОФІЛЮ (DROPDOWN) ==================== */
+.profile-menu {
+  position: relative;
+}
+.profile-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #f0f2f5;
+  border: none;
+  border-radius: 8px;
+  padding: 2px 4px; 
+  cursor: pointer;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.profile-button:hover {
+  background-color: #e4e6eb;
+}
+.dropdown-content {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 1001;
+  width: 250px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+  border: 1px solid #eee;
+  padding: 8px;
+  animation: fadeIn 0.2s ease-out;
+}
+.dropdown-content ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.dropdown-content li a,
+.dropdown-content li button {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 16px;
+  width: 100%;
+  border-radius: 8px;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s;
+}
+.dropdown-content li span { font-size: 1.2rem; }
+.dropdown-content li a:hover,
+.dropdown-content li button:hover {
+  background-color: #f5f5f5;
+}
+.logout-item {
+  border-top: 1px solid #eee;
+  margin-top: 5px;
+  padding-top: 5px;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== СТОРІНКА ДЕТАЛІЗАЦІЇ КНИГИ ==================== */
+.book-detail-page.container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.book-detail-grid {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 50px;
+  align-items: flex-start;
+}
+.book-detail-left-column {
+  position: sticky;
+  top: 100px;
+}
+.book-detail-cover img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.1);
+}
+.book-detail-right-column h1 {
+  text-align: left;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0 0 5px;
+  line-height: 1.2;
+}
+.book-detail-author-link {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0 0 25px;
+  font-weight: 400;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.book-detail-author-link:hover { color: #f25a38; }
+.detail-section {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #f0f0f0;
+}
+.detail-section h3 {
+  font-size: 1.8rem;
+  margin: 0 0 20px;
+  font-weight: 700;
+  text-align: left; 
+}
+.characteristics-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.characteristics-table td {
+  padding: 10px 5px;
+  border-bottom: 1px solid #f5f5f5;
+}
+.characteristics-table td:first-child {
+  color: #6c757d;
+  width: 40%;
+}
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.review-card {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 20px 0;
+}
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.review-author {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.stars { color: #f39c12; }
+.review-comment { line-height: 1.7; }
+.purchase-box-wrapper {
+  margin-top: 20px;
+}
+.purchase-box {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+.price-container {
+  margin-bottom: 15px;
+}
+.current-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f25a38;
+  margin-right: 10px;
+}
+.old-price {
+  font-size: 1.2rem;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+/* ==================== КАРУСЕЛЬ КНИГ (GRID-SCROLL) ==================== */
+.book-carousel-grid-scroll {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 256px;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+}
+.book-carousel-grid-scroll > div {
+  scroll-snap-align: start;
+}
+.book-carousel-grid-scroll::-webkit-scrollbar {
+  display: none;
+}
+.book-carousel-grid-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ==================== СТИЛІ ДЛЯ ЗІРОЧОК ТА ВІДГУКІВ ==================== */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.star-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 2px;
+  cursor: pointer;
+  font-size: 2rem;
+  color: #ccc;
+  transition: color 0.2s;
+}
+.star-button.on { color: #f39c12; }
+.star-rating:hover .star-button { color: #f39c12; }
+.star-rating .star-button:hover ~ .star-button { color: #ccc; }
+.review-form {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+.review-form h4 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.review-form p {
+  margin: 0 0 5px 0;
+  font-weight: 500;
+}
+.review-form textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+/* 5. Стилі для тіла (Body) */
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* --- НОВІ СТИЛІ ДЛЯ СПИСКУ ТОВАРІВ --- */
+.modal-overlay {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); 
+  z-index: 1000; 
+  animation: fadeIn 0.4s ease-out;
+}
+.modal-content {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px 0 0 16px; 
+  background-color: #fff;
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: slideInFromRight 0.4s ease-out;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #eee;
+  flex-shrink: 0; 
+}
+.modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  margin-left: 12px;
+}
+.close-button {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #888;
+  padding: 0;
+  line-height: 1;
+}
+.close-button:hover {
+  color: #000;
+}
+.modal-tabs {
+  display: flex;
+  padding: 0 24px;
+  border-bottom: 1px solid #eee;
+  flex-shrink: 0;
+}
+.modal-tabs a {
+  text-decoration: none;
+  color: #777;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+}
+.modal-tabs .tab-active {
+  color: #000;
+  border-bottom-color: #FDC72A; 
+}
+.modal-tabs .tab-inactive:hover {
+  color: #000;
+}
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f7f7f7;
+  padding: 16px 24px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 0;
+  border-top: 1px solid #eee;
+  flex-shrink: 0;
+}
+.checkout-button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  float: right;
+}
+.checkout-button:hover {
+  background-color: #c0392b; 
+}
+.total-price-badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #FFF1F0;
+  border: 1px solid #FF5733;
+
+  border-radius: 10px;
+  padding:8px 16px ;
+  margin-right: 15px;
+
+font-family: 'Segoe UI', sans-serif;
+font-size: 16px;
+font-weight: 600;
+color: #C0392B;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+}
+.total-price-badge strong {
+  color: #B91C1C; 
+  font-size: 14px;
+}
+.total-price-badge strong,
+.total-price-badge b{
+  color: #2c3e50;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInFromRight {
+  from { 
+    transform: translateX(100%);
+  }
+  to { 
+    transform: translateX(0);
+  }
+}
+.cart-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.cart-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.cart-item-image {
+  width: 60px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.cart-item-details {
+  flex-grow: 1;
+}
+.cart-item-details h4 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.cart-item-details p {
+  margin: 0;
+  font-size: 13px;
+  color: #555;
+}
+.cart-item-price {
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 16px;
+  white-space: nowrap;
+  color: #000;
+}
+
+/* === СТИЛІ ЗНАЧКА КОШИКА (майже без змін) === */
+.cart-icon-link {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin: 0;
+  line-height: 1;
+  /* Додаємо колір для SVG */
+  color: #333; 
+}
+.cart-icon-link svg {
+  width: 24px;
+  height: 24px;
+}
+.cart-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #FDC72A; 
+  color: #000;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 1;
+  border: 1px solid #fff;
+  transform: translate(30%, -30%); 
+}
+
+/* === НОВІ СТИЛІ ДЛЯ ПРОФІЛЮ === */
+
+/* Іконка Бажань (Сердечко) */
+.wishlist-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+}
+.wishlist-icon-link svg {
+  width: 24px;
+  height: 24px;
+}
+
+
+.profile-menu {
+  position: relative; 
+  margin-left: 12px;
+}
+
+/* Нова кнопка профілю */
+.profile-button {
+   display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.profile-button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Іконка 👤 всередині кнопки */
+.profile-icon-wrapper {
+  position: relative;
+  margin-right: 8px;
+  color: #333;
+}
+.profile-icon-wrapper svg {
+  width: 23px;
+  height: 23px;
+}
+
+.profile-badge {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  background-color: #FDC72A;
+  color: #000;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 4px;
+  font-size: 10px;
+  line-height: 1;
+  border: 1px solid #fff;
+}
+
+.profile-button-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 14px;
+  line-height: 1.3;
+}
+.profile-button-text span {
+  font-size: 0px;
+  color: #555;
+  text-transform: uppercase;
+}
+.profile-button-text strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: #000;
+}
+
+/* Стрілка (шеврон) */
+.profile-chevron {
+  margin-left: 2px;
+  color: #555;
+  transition: transform 0.2s;
+}
+
+
+
+.profile-chevron.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-content {
+  position: absolute;
+  top: calc(100% + 10px); 
+  right: 0;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 300px;
+  z-index: 1001;
+  border: 1px solid #eee;
+  overflow: hidden; 
+  animation: dropdownFadeIn 0.2s ease-out;
+}
+.dropdown-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Кожен елемент <li>...</li> */
+.dropdown-content li {
+  margin: 0;
+  border-bottom: 1px solid #f0f0f0; 
+}
+.dropdown-content li:last-child {
+  border-bottom: none;
+}
+
+
+.dropdown-content li a,
+.dropdown-content li button {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s;
+}
+.dropdown-content li a:hover,
+.dropdown-content li button:hover {
+  background-color: #f9f9f9;
+}
+
+/* Іконки всередині меню */
+.dropdown-content li svg {
+  width: 25px;
+  height: 25px;
+  margin-right: 12px;
+  color: #555;
+}
+
+.dropdown-badge {
+  margin-left: auto; 
+  background-color: #FDC72A;
+  color: #000;
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 2px 8px;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+/* Червоний текст для "Вийти" */
+.dropdown-content li.logout-item button {
+  color: #e53e3e; 
+}
+.dropdown-content li.logout-item svg {
+  color: #e53e3e;
+}
+
+/* Анімація появи меню */
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.book-card-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.book-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.book-card-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 150%; 
+  background-color: #f0f0f0;
+}
+
+
+@media (max-width: 768px) {
+  .cart-modal-footer {
+    width: 100%;
+    justify-content: space-between; 
+    margin-top: 10px;
+  }
+}
+
+.book-card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 4px 12px 12px 4px;
+  transform: perspective(1000px) rotateY(-2deg);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.book-card-link:hover .book-card-image {
+  transform: perspective(1000px) rotateY(0deg) scale(1.02);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 2. Значок "Новинка" (синій) */
+.book-card-new-badge {
+  position: absolute;
+  top: 12px;
+  left: -4px;
+  z-index: 2;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+}
+
+.icon-new-badge {
+  width: 32px;
+  height: 32px;
+}
+
+/* 3. Кнопка "Сердечко" (Wishlist) */
+.book-card-wishlist-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  
+  /* Стилізація кнопки */
+  background-color: #ffffff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #333;
+}
+
+.book-card-wishlist-button:hover {
+  transform: scale(1.1);
+  background-color: #fff;
+}
+
+.book-card-wishlist-button .icon-heart {
+  width: 22px;
+  height: 22px;
+}
+
+/* Стиль для "доданого" сердечка */
+.book-card-wishlist-button.wished {
+  color: #ff4757; /* Червоний */
+}
+.book-card-wishlist-button.wished .icon-heart {
+  fill: #ff4757;
+  stroke: #ff4757;
+}
+
+/* 4. Деталі картки (текст) */
+.book-card-details {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Займає решту місця */
+}
+
+.book-card-rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  color: #666;
+  font-size: 13px;
+}
+
+.book-card-rating .icon-star {
+  width: 18px;
+  height: 18px;
+  margin-right: 2px;
+}
+.book-card-rating .no-rating {
+  font-style: italic;
+  color: #999;
+}
+.book-card-rating .rating-value {
+  font-weight: 600;
+  color: #333;
+  margin-left: 6px;
+  font-size: 15px;
+}
+.book-card-rating .review-count {
+  margin-left: 6px;
+  color: #888;
+}
+
+/* 5. Назва та Автор */
+.book-card-title {
+  font-size: 18px; 
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 46px;  
+}
+
+.book-card-author {
+  font-size: 14px;
+  color: #555;
+  margin: 4px 0 0 0;
+  flex-grow: 1; 
+  padding-bottom: 12px;
+}
+
+/* 6. Підвал картки  */
+.book-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto; 
+}
+
+.book-card-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.book-card-price .original-price {
+  font-size: 14px;
+  color: #999;
+  text-decoration: line-through;
+  line-height: 1;
+}
+
+.book-card-price .current-price {
+  font-size: 22px; 
+  font-weight: 700;
+  color: #d9534f; 
+  line-height: 1;
+}
+
+/* 7. Кнопка "Кошик" (жовта) */
+.book-card-cart-button {
+  background-color: #FDC72A; 
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.book-card-cart-button:hover {
+  background-color: #fdbd00;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.book-card-cart-button svg {
+  width: 22px;
+  height: 22px;
+}
+/* стилі для кнопки зміни теми і її правила */
+.theme-button {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background: none;
+ border: none;
+ color: #333;
+ cursor: pointer;
+ padding: 8px;
+ border-radius: 50%;
+ transition: background-color 0.2s, color 0.2s;
+}
+
+.theme-button:hover {
+ background-color:#FDE003;
+}
+.theme-button svg {
+ width: 22px; 
+ height: 22px;
+}
+body.dark {
+ background-color: #121212;
+ color: #e0e0e0;
+}
+body.dark .theme-button{
+  background: #292c29;
+ 
+}
+body.dark .theme-button:hover{
+  background: #FDE003;
+ 
+}
+body.dark .app-layout {
+ background-color: #121212;
+}
+
+
+body.dark .app-header {
+ background: #1e1e1e;
+ border-bottom: 1px solid #333;
+ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+body.dark .page-section,
+body.dark .portfolio-section,
+body.dark .search-content-card,
+body.dark .wishlist-content-card,
+body.dark .profile-card,
+body.dark .form-section {
+ background-color: #1e1e1e;
+ border-bottom: 1px solid #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+body.dark .admin-section {
+  background-color: #121212; 
+}
+
+
+body.dark .logo,
+body.dark .main-nav a,
+body.dark h1, body.dark h2, body.dark h3, body.dark h4,
+body.dark .search-title,
+body.dark .wishlist-title,
+body.dark .book-card-title,
+body.dark .book-card-price .current-price,
+body.dark .profile-button-text strong,
+body.dark .dropdown-content li a,
+body.dark .dropdown-content li button,
+body.dark .cart-modal-header h2,
+body.dark .cart-item-details h4,
+body.dark .cart-item-price,
+body.dark .profile-card h1,
+body.dark .profile-section h2,
+body.dark .profile-details strong {
+ color: #f5f5f5;
+}
+
+body.dark .book-card-author,
+body.dark .book-card-rating,
+body.dark .book-card-price .original-price,
+body.dark .profile-button-text span,
+body.dark .profile-chevron,
+body.dark .wishlist-icon-link,
+body.dark .cart-icon-link,
+body.dark .theme-toggle-button,
+body.dark .profile-details p,
+body.dark .profile-placeholder,
+body.dark .cart-item-details p,
+body.dark .loading-text,
+body.dark .empty-wishlist-message p,
+body.dark .empty-search-placeholder p {
+ color: #aaa;
+}
+
+
+body.dark .search-input-header {
+ background-color: #333;
+ border-color: #555;
+ color: #f5f5f5;
+}
+body.dark .search-input-header:focus {
+  border-color: #FDC72A;
+  background-color: #222;
+  box-shadow: 0 0 0 3px rgba(253, 199, 42, 0.3);
+}
+
+body.dark .btn-login,
+body.dark .btn-outline {
+  background: #333;
+  border-color: #555;
+  color: #f5f5f5;
+}
+body.dark .btn-login:hover {
+  background: #444;
+  border-color: #666;
+}
+body.dark .btn-outline {
+  border-color: #f25a38;
+  color: #f25a38;
+}
+body.dark .btn-outline:hover {
+  background-color: #f25a38;
+  color: white;
+}
+
+/* === Картка книги === */
+body.dark .book-card-container {
+ background: #2a2a2a;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+body.dark .book-card-container:hover {
+ box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+body.dark .book-card-image-wrapper::after {
+  background: #3a3a3a;
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.1), -1px 0 1px rgba(100,100,100,0.1);
+}
+body.dark .book-card-image-wrapper::before {
+  opacity: 0.3;
+}
+body.dark .book-card-wishlist-button {
+ background-color: #333;
+ border-color: #555;
+ color: #f5f5f5;
+}
+body.dark .book-card-wishlist-button:hover {
+  background-color: #444;
+}
+body.dark .book-card-wishlist-button.wished {
+ color: #ff4757; 
+background-color: #444;
+}
+body.dark .book-card-wishlist-button.wished .icon-heart {
+ fill: #ff4757;
+ stroke: #ff4757;
+}
+
+body.dark .profile-button:hover {
+background-color: #333;
+}
+body.dark .dropdown-content {
+background-color: #2a2a2a;
+border-color: #444;
+}
+body.dark .dropdown-content li {
+border-bottom-color: #444;
+}
+body.dark .dropdown-content li a,
+body.dark .dropdown-content li button {
+color: #f5f5f5;
+}
+body.dark .dropdown-content li a:hover,
+body.dark .dropdown-content li button:hover {
+background-color: #3a3a3a;
+}
+body.dark .dropdown-content li svg {
+color: #aaa;
+}
+body.dark .logout-item button,
+body.dark .logout-item button svg {
+color: #e57373; 
+}
+body.dark .logout-item button:hover {
+background-color: #4a3a3a;
+}
+
+/* === Меню профілю === */
+body.dark .profile-button:hover {
+ background-color: #333;
+}
+body.dark .dropdown-content .book-cover-container {
+ background-color: #2a2a2a;
+ border-color: #444;
+}
+body.dark .book-card{
+  background: #2a2a2a;
+}
+body.dark .dropdown-content li {
+  border-bottom-color: #444;
+}
+body.dark .dropdown-content li a:hover,
+body.dark .dropdown-content li button:hover {
+ background-color: #3a3a3a;
+}
+body.dark .dropdown-content li svg {
+  color: #aaa;
+}
+body.dark .logout-item button,
+body.dark .logout-item button svg {
+ color: #e57373; /* Світліший червоний */
+}
+body.dark .logout-item button:hover {
+  background-color: #4a3a3a;
+}
+
+/* === Модальне вікно (логін) === */
+body.dark .modal-content {
+  background: #2a2a2a;
+}
+body.dark .modal-content input {
+  background: #333;
+  border-color: #555;
+  color: #f5f5f5;
+}
+body.dark .btn-close {
+  color: #777;
+}
+body.dark .btn-close:hover {
+  color: #f5f5f5;
+}
+
+/* === Модальне вікно (кошик) === */
+body.dark .cart-modal-content {
+  background: #2a2a2a;
+}
+body.dark .cart-modal-header,
+body.dark .cart-modal-tabs,
+body.dark .cart-item {
+  border-bottom-color: #444;
+}
+body.dark .cart-modal-footer {
+  background-color: #1e1e1e;
+  border-top-color: #444;
+}
+body.dark .cart-close-button {
+  color: #777;
+}
+body.dark .cart-close-button:hover {
+  color: #f5f5f5;
+}
+body.dark .cart-modal-tabs a {
+  color: #888;
+}
+body.dark .cart-modal-tabs .tab-active {
+  color: #f5f5f5;
+}
+body.dark .cart-item-remove-button {
+  color: #777;
+}
+body.dark .cart-item-remove-button:hover {
+  color: #e57373;
+}
+body.dark .cart-promo-text {
+  color: #888;
+}
+.cart-item-remove-button {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+/* === Футер === */
+body.dark .app-footer {
+  background: #1e1e1e;
+  color: #777;
+}
+body.dark .social-links a {
+  color: #aaa;
+}
+body.dark .social-links a:hover {
+  color: #f5f5f5;
+}
+
+/* === Інші Сторінки === */
+body.dark .profile-section {
+  border-top-color: #444;
+}
+body.dark .characteristics-table td {
+  border-bottom-color: #444;
+}
+body.dark .review-card {
+  border-bottom-color: #444;
+}
+body.dark .purchase-box {
+  background-color: #2a2a2a;
+  border-color: #444;
+}
+body.dark .cart-summary {
+  background-color: #2a2a2a;
+  border-color: #444;
+}
+body.dark .cart-summary h2 {
+  border-bottom-color: #555;
+}
+body.dark .cart-summary-total {
+  border-top-color: #555;
+}
+body.dark .cart-items-list-fullpage {
+  background: #2a2a2a;
+}
+body.dark .cart-items-list-fullpage .cart-item {
+  border-bottom-color: #444;
+}
+/* СКРОЛ ДЛЯ ІСТОРІЇ */
+.horizontal-scroll-container {
+  display: flex;
+  gap: 24px; 
+  overflow-x: auto; 
+  scroll-behavior: smooth;
+  padding: 10px 4px; 
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+.horizontal-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.horizontal-scroll-container::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 20px;
+}
+
+/* Фіксація ширини картки в каруселі */
+.scroll-item {
+  flex: 0 0 auto;
+  width: 280px;   
+}
