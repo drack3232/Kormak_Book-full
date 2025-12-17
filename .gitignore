@@ -1,5 +1,5 @@
 .env
-# Папки з залежностями
+
 node_modules/
 
 # Файли середовища
@@ -9,3 +9,4 @@ sever.env
 # Папки збірки
 build/
 dist/
+React/library-frontend/node_modules/
